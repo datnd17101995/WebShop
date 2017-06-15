@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Model.Models
 {
-    [Table("Error")]
-    public class Error
+    [Table("VisitorStatistics")]
+    public class VisitorStatistic
     {
         [Key]
-        public int Id { get;set; }
+        public Guid ID { set; get; }
 
-        public string Messeage { get; set; }
+        [Required]
+        public DateTime VisitedDate { set; get; }
 
-        public string StackTrace { get; set; }
-
-        public DateTime CreateDate { get; set; }
+        [MaxLength(50)]
+        public string IPAddress { set; get; }
     }
 }
