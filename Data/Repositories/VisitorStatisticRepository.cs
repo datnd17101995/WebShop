@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public interface IVisitorStatisticRepository
+    public interface IVisitorStatisticRepository:IRepository<VisitorStatistic>
     {
 
     }

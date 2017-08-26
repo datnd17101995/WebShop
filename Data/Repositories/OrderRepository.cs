@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository:IRepository<Order>
     {
     }
     public class OrderRepository : RepositoryBase<Order>,IOrderRepository

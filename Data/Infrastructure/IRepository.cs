@@ -15,6 +15,7 @@ namespace Data.Infrastructure
 
         void Delete(T entity);
 
+        void Delete(int id);
         T GetSingleById(int id);
 
         void DeleteMulti(Expression<Func<T,bool>> where);
@@ -25,7 +26,7 @@ namespace Data.Infrastructure
 
         IEnumerable<T> GetMulti(Expression<Func<T, bool>> expression, string[] include = null);
 
-        IEnumerable<T> GetMultiPagging(Expression<Func<T, bool>> filter, out int total, string include = null, int page = 1, int pageSize = 50);
+        IEnumerable<T> GetMultiPagging(Expression<Func<T, bool>> filter, out int total, int page = 1, int pageSize = 50, string[] include = null);
 
         int Count(Expression<Func<T, bool>> where);
 

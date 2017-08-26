@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Data.Infrastructure
 {
-    public class RepositoryBase<T> where T:class
+    public class RepositoryBase<T> where T : class
     {
         #region properties
         private ShopDbContext dbContext;
@@ -18,7 +18,7 @@ namespace Data.Infrastructure
         {
             get;
             private set;
-        } 
+        }
 
         protected ShopDbContext DbContext
         {
@@ -57,6 +57,12 @@ namespace Data.Infrastructure
             dbSet.Remove(entity);
         }
 
+        public virtual void Delete(int id)
+        {
+            T obj = dbSet.Find(id);
+            dbSet.Remove(obj);
+        }
+
         public virtual void DeleteMulti(Expression<Func<T,bool>> where)
         {
             IEnumerable<T> query =  dbSet.Where<T>(where).AsEnumerable();
@@ -74,7 +80,7 @@ namespace Data.Infrastructure
             return dbSet.Where(where).ToList();
         }
 
-        public T GetSingleByCondition(Expression<Func<T, bool>> where, string[] includes = null)
+        public T GetSingeByCondition(Expression<Func<T, bool>> where, string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)
             {
@@ -115,7 +121,7 @@ namespace Data.Infrastructure
             return dbContext.Set<T>().Where(where).AsEnumerable();
         }
 
-        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        public virtual IEnumerable<T> GetMultiPagging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
@@ -135,7 +141,7 @@ namespace Data.Infrastructure
 
             _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
             total = _resetSet.Count();
-            return _resetSet.AsEnumerable();
+            return _resetSet.AsQueryable();
         }
 
         public bool CheckContains(Expression<Func<T, bool>> predicate)
